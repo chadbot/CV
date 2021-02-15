@@ -1,0 +1,13 @@
+# project settings
+.vscode
+
+# LaTeX temp files
+*.aux
+*.log
+*.out
+*.gz
+
+# misc
+archive
+examples
+
