@@ -1,0 +1,45 @@
+% !TEX program = lualatex
+\documentclass[11pt, letterpaper]{article}
+\usepackage{cv}
+
+\title{CV}
+\author{Chad Borkenhagen}
+
+\makeatletter % enables access to @author and @title values
+
+\begin{document}
+
+% add header and footer
+\addFooter{\@author\space \@title}{\monthyeardate\today}
+
+\addHeader{\@author}
+{
+  Interdisciplinary Center for \\
+  Innovative Theory and Empirics \\
+  Columbia University \\
+  606 W. 122nd Street \\
+  New York, NY 10027
+}
+{
+  135 Hancock Street\\
+  Unit 3 \\ 
+  Brooklyn, NY 11216 \\
+  \Email{crb97@columbia.edu} \\ 
+  \URL{https://chadborkenhagen.com}
+}
+\rule{\textwidth}{1pt}
+
+% add sections
+\input{subfiles/interests.tex}
+\input{subfiles/employment.tex}
+\input{subfiles/education.tex}
+\input{subfiles/publications.tex}
+\input{subfiles/presentations.tex}
+\input{subfiles/teaching.tex}
+\input{subfiles/awards.tex}
+\input{subfiles/service.tex}
+\input{subfiles/affiliations.tex}
+\input{subfiles/skills.tex}
+\input{subfiles/references_empty.tex}
+
+\end{document}

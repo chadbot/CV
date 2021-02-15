@@ -1,0 +1,149 @@
+\usepackage{extsizes}
+\usepackage[letterpaper, hmargin=.75in, vmargin=.5in]{geometry}
+\usepackage{fancyhdr,lastpage}
+\usepackage{color}
+\usepackage{tabularx}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fontspec}
+\usepackage{titlesec}
+\usepackage{multirow}
+\usepackage{etoolbox}
+\usepackage{ifthen}
+\usepackage{enumitem}
+\usepackage{makecell}
+\usepackage{paracol}
+
+% ----- FONTS AND COLORS ------------------------------------------------------------
+% define default fonts
+\setmainfont{Adobe Garamond Pro}
+\fontsize{10.5}{11}\selectfont      
+
+% define colors
+\definecolor{darkgrey}{rgb}{0.4,0.4,0.4}
+
+% bold and italic 
+\newcommand{\textbi}[1]{\textbf{\textit{#1}}}
+
+% expand letter spacing
+\newcommand{\spacedsc}[1]{\scshape\addfontfeatures{LetterSpace=#1}}
+
+
+% ----- PAGE FORMATTING AND SPACING ----------------------------------------------------
+
+% Set page margins
+\setlength{\topmargin}{-.25in}
+\setlength{\headheight}{0in}
+\setlength{\headsep}{0in}
+
+% remove page number
+\pagenumbering{gobble}
+
+% no default indentation
+\setlength{\parindent}{0em}
+
+% define table dimensions
+\newlength{\smallcolwidth}
+\newlength{\tablewidth}
+\newlength{\lindent}
+\newlength{\rindent}
+
+\setlength\tabcolsep{0em}
+\setlength{\tablewidth}{1.0\textwidth}
+\setlength{\smallcolwidth}{.17\tablewidth}
+\setlength{\lindent}{.5em}
+\setlength{\rindent}{.5em}
+
+% vertical space between items
+\newskip\itemskip \itemskip=.5\baselineskip plus .2ex minus .2ex
+
+% ----- SECTION FORMATTING ----------------------------------------------------------
+
+\titlespacing{\section}{0em}{0ex}{-1ex}
+% \titleformat{\section}{\color{darkgrey}\scshape\raggedright\bf\LARGE\MakeUppercase}{}{}{}[]
+\titleformat{\section}{\color{darkgrey}\raggedright\bf\LARGE\scshape}{}{}{}[]
+
+
+% ----- HEADER AND FOOTER -------------------------------------------------------------
+
+\newcommand{\Email}[1]{\href{mailto:#1}{#1}}
+\newcommand{\URL}[1]{\href{#1}{#1}}
+
+\newcommand{\addHeader}[3]{
+	% {\centering\huge\textbf{#1} \\}
+	\begin{tabularx}{\textwidth}{X X}
+		\makecell[l]{#2} & \makecell[r]{#3} \\
+	\end{tabularx}
+}
+
+
+\newcommand{\addFooter}[2]{
+	\fancypagestyle{plain}{\fancyhf{}
+	\lfoot{\ifthenelse{\value{page}=1}{}{#1}}
+	\cfoot{\ifthenelse{\value{page}=1}{}{#2}}
+	\rfoot{\thepage\ of \pageref{LastPage}}}
+	\pagestyle{plain}
+}
+
+% remove hlines from header and footer
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% ----- ADD ITEM COMMANDS ------------------------------------------------------------
+
+% Add education
+% Use: \addDegree{year}{degree}{subject}{school}{other details}
+\newcommand{\addDegree}[5]{
+	\vspace{\itemskip}
+	\vbox{
+		\begin{tabularx}{\linewidth}{@{\hspace{0in}} X r}
+		\textbf{#4} | #2, #3 & #1		
+		\end{tabularx}
+		\ifblank{#5}{\vspace{-1.5\itemskip}}{
+			\begin{itemize}[nosep, leftmargin=\lindent, itemindent=-1\lindent,
+				rightmargin=2\rindent, label={}]
+				#5
+			\end{itemize}
+		 }
+	}
+}
+
+% Add work experience
+% Use: \addJob{years}{position}{employer}{city}{details}
+\newcommand{\addJob}[5]{
+	\vspace{\itemskip}
+	\vbox{
+		\begin{tabularx}{\linewidth}{@{\hspace{0pt}} X r @{\hspace{\rindent}}}
+		\textbf{#2} &  #1 \\
+		\multicolumn{2}{l}{\ifblank{#3}{\textit{#4}}{\textit{#3, #4}}} \\
+		\end{tabularx}\ifblank{#5}{\vspace{-1.5\itemskip}}{
+			\begin{itemize}[nosep, leftmargin=1.75\lindent, rightmargin=2\rindent]
+				#5
+			\end{itemize}
+		 }
+		% \vspace{.5\itemskip}
+	}
+}
+
+% Add publications
+% Use: \addPubs{\item publication}
+\newcommand{\addPubs}[1]{
+	\vspace{\itemskip}
+	\vbox{
+		\begin{itemize}[nosep, leftmargin=\lindent, itemindent=-1\lindent, 
+			label={}, itemsep=\itemskip, rightmargin=\rindent]
+		#1
+		\end{itemize}
+	}
+}
+
+\newcommand{\addSkillGroup}[2]{
+	\vspace{\itemskip}
+	\vbox{
+	\noindent\textbf{#1}
+		\begin{itemize}[nosep, leftmargin=1.75\lindent, rightmargin=3\rindent]
+		#2
+		\end{itemize}
+	}
+	\vspace{.5\itemskip}
+}
+

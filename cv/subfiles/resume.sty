@@ -1,0 +1,136 @@
+\usepackage[letterpaper,hmargin=1in,vmargin=1in]{geometry}
+\usepackage{fancyhdr,lastpage}
+\usepackage{color}
+\usepackage{tabularx}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fontspec}
+\usepackage{titlesec}
+\usepackage{tabulary}
+\usepackage{multirow}
+\usepackage{etoolbox}
+\usepackage{ifthen}
+\usepackage{enumitem}
+\usepackage{makecell}
+
+% ----- FONT PREFERENCES ------------------------------------------------------------
+% define main font
+\setmainfont{Adobe Garamond Pro}
+
+% colour definitions
+\definecolor{darkgrey}{rgb}{0.3,0.3,0.3}
+
+% ----- PAGE FORMATTING AND SPACING ----------------------------------------------------
+
+% Page margins adjustments
+\setlength{\topmargin}{0in}
+\setlength{\headheight}{0in}
+\setlength{\headsep}{0in}
+
+% no default indentation
+\setlength{\parindent}{0em}
+
+% section formatting
+\titlespacing{\section}{0em}{1ex}{-.25\baselineskip}
+\titleformat{\section}{\color{darkgrey}\scshape\raggedright\LARGE}{}{}{}
+
+% define table lengths
+\newlength{\smallcolwidth}
+\newlength{\tablewidth}
+\newlength{\lindent}
+\newlength{\rindent}
+
+\setlength\tabcolsep{0em}
+\setlength{\tablewidth}{1.0\textwidth}
+\setlength{\smallcolwidth}{.13\tablewidth}
+\setlength{\lindent}{1.5em}
+\setlength{\rindent}{.5em}
+
+% vertical space between items
+\newskip\itemskip \itemskip=.5\baselineskip plus .2ex minus .2ex
+
+% ----- HEADER AND FOOTER --------------------------------------------------------------
+
+\newcommand{\Email}[1]{\href{mailto:#1}{#1}}
+\newcommand{\URL}[1]{\href{#1}{#1}}
+
+\newcommand{\addHeader}[3]{
+	{\centering\huge\textbf{#1} \\}
+	\begin{tabularx}{\textwidth}{X r}
+    	\makecell[ml]{#2} & \makecell[mr]{#3}
+	\end{tabularx}
+}
+
+\newcommand{\addFooter}[2]{
+	\fancypagestyle{plain}{\fancyhf{}
+	\lfoot{\ifthenelse{\value{page}=1}{}{#1}}
+	\cfoot{\ifthenelse{\value{page}=1}{}{#2}}
+	\rfoot{\thepage\ of \pageref{LastPage}}}
+	\pagestyle{plain}
+}
+
+% remove hlines from header and footer
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% ----- ADD ITEM COMMANDS ------------------------------------------------------------
+
+% Add education
+% Use: \addDegree{year}{degree}{subject}{school}{other details}
+\newcommand{\addDegree}[5]{
+	\vspace{\itemskip}
+	\vbox{
+		\begin{tabularx}{\tablewidth}{@{\hspace{\lindent}} X r}
+		\textbf{#2 in #3} & #1 \\
+		\textit{#4} &
+		\end{tabularx}\ifblank{#5}{}{
+			\begin{itemize}[nosep, leftmargin=1.6\lindent, rightmargin=\rindent]
+				#5
+			\end{itemize}
+		 }
+	}
+}
+
+% Add work experience
+% Use: \addJob{years}{position}{employer}{city}{details}
+\newcommand{\addJob}[5]{
+	\vspace{\itemskip}
+	\vbox{
+		\begin{tabularx}{\tablewidth}{@{\hspace{\lindent}} X r}
+		\textbf{#2} &  #1 \\
+		\ifblank{#3}{\textit{#4}}{\textit{#3, #4}} & \\
+		\end{tabularx}\ifblank{#5}{}{
+			\begin{itemize}[nosep, leftmargin=1.75\lindent, rightmargin=\rindent]
+				#5
+			\end{itemize}
+		 }
+	}
+}
+
+% Add publications
+% Use: \addPubs{\item publication}
+\newcommand{\addPubs}[1]{
+	\vspace{\itemskip}
+	\vbox{
+		\begin{itemize}[nosep, leftmargin=2\lindent, itemindent=-1\lindent, 
+			label={}, itemsep=\itemskip, rightmargin=\rindent]
+		#1
+		\end{itemize}
+	}
+}
+
+% Add skill group
+% Use: \addSkillGroup{groupTitle}{skills}
+\newcommand{\addSkillGroup}[2]{
+	\vspace{\itemskip}
+	\vbox{
+	\begin{tabularx}
+		{\tablewidth}{
+			@{\hspace{\lindent}} 
+			>{\raggedright\arraybackslash}p{\smallcolwidth} 
+			@{\hspace{.5em}}X
+			@{\hspace{\rindent}}  
+		}
+		\textbf{#1} &  #2
+	\end{tabularx}
+	}
+}

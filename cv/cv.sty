@@ -1,0 +1,172 @@
+\usepackage[letterpaper,hmargin=1in,vmargin=1in]{geometry}
+\usepackage{fancyhdr,lastpage}
+\usepackage{color}
+\usepackage{tabularx}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fontspec}
+\usepackage{titlesec}
+\usepackage{tabulary}
+\usepackage{multirow}
+\usepackage{etoolbox}
+\usepackage{ifthen}
+\usepackage{enumitem}
+\usepackage{makecell}
+\usepackage{datetime}
+
+% ----- FONT PREFERENCES ------------------------------------------------------------
+% define main font
+\setmainfont{Adobe Garamond Pro}
+
+% colour definitions
+\definecolor{darkgrey}{rgb}{0.3,0.3,0.3}
+
+% style to expand letter spacing
+\newcommand{\spacedsc}[1]{\scshape\addfontfeatures{LetterSpace=#1}}
+
+% ----- PAGE FORMATTING AND SPACING ----------------------------------------------------
+
+% Page margins adjustments
+\setlength{\topmargin}{0in}
+\setlength{\headheight}{0in}
+\setlength{\headsep}{0in}
+
+% no default indentation
+\setlength{\parindent}{0em}
+
+% section formatting
+\titlespacing{\section}{0em}{1ex}{-.25\baselineskip}
+\titleformat{\section}{\color{darkgrey}\scshape\raggedright\LARGE\spacedsc{5}}{}{}{}
+
+
+
+\titlespacing*{\subsection}{.5em}{1ex}{-.25\baselineskip}
+
+% define table lengths
+\newlength{\smallcolwidth}
+\newlength{\tablewidth}
+\newlength{\lindent}
+\newlength{\rindent}
+
+\setlength\tabcolsep{0em}
+\setlength{\tablewidth}{1.0\textwidth}
+\setlength{\smallcolwidth}{.75in}
+\setlength{\lindent}{1.5em}
+\setlength{\rindent}{.25in}
+
+% vertical space between items
+\newskip\itemskip \itemskip=.5\baselineskip plus .2ex minus .2ex
+
+% ----- HEADER AND FOOTER --------------------------------------------------------------
+
+\newcommand{\Email}[1]{\href{mailto:#1}{#1}}
+\newcommand{\URL}[1]{\href{#1}{#1}}
+
+\newdateformat{monthyeardate}{%
+  \monthname[\THEMONTH] \THEYEAR}
+
+\newcommand{\addHeader}[3]{
+	{\centering\Huge\scshape\spacedsc{10}\textsc{#1} \\ \vspace{1\itemskip}}
+	\noindent\begin{tabularx}{\textwidth}{@{}X r@{}}
+    	\makecell[ml]{#2} & \makecell[mr]{#3}
+	\end{tabularx}
+}
+
+\newcommand{\addFooter}[2]{
+	\fancypagestyle{plain}{\fancyhf{}
+	\lfoot{\ifthenelse{\value{page}=1}{#2}{#2}}
+	\cfoot{\ifthenelse{\value{page}=1}{}{#1}}
+	\rfoot{\thepage\ of \pageref{LastPage}}}
+	\pagestyle{plain}
+}
+
+% remove hlines from header and footer
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% ----- ADD ITEM COMMANDS ------------------------------------------------------------
+
+% Add formatted degree info
+% Use: \addDegree{year}{degree}{subject}{school}{details}
+\newcommand{\addDegree}[5]{
+	\vspace{\itemskip}
+	\begin{tabularx}{\tablewidth}{
+		@{\hspace{\lindent}} 
+		>{\raggedleft\arraybackslash}p{\smallcolwidth}
+		@{\hspace{1em}}X
+		@{\hspace{\rindent}}
+	}
+	\multirow[t]{2}{=}{\raggedleft\textbf{#1}} &  \textbf{#4} \\
+	& \textit{#2 in #3} \\
+	% & \textit{#4} \\
+	\ifblank{#5}{}{
+		& \begin{minipage}[t]{\linewidth}
+			\begin{itemize}[nosep, leftmargin=0in, label={}]
+				#5
+			\end{itemize}
+		\end{minipage}
+	}
+	\end{tabularx}
+}
+
+% Add formatted degree info
+% Use: \addJob{years}{position}{employer}{location}{details}
+\newcommand{\addJob}[4]{
+	\vspace{\itemskip}
+	\begin{tabularx}{\tablewidth}{
+		@{\hspace{\lindent}} 
+		>{\raggedleft\arraybackslash}p{\smallcolwidth}
+		@{\hspace{1em}}X
+		@{\hspace{\rindent}}
+	}
+	\multirow[t]{2}{=}{\raggedleft\textbf{#1}} &  \textbf{#2} \\
+	& \textit{#3} \\
+	\ifblank{#4}{}{
+		& \begin{minipage}[t]{\linewidth}
+			\begin{itemize}[nosep, leftmargin=0in, label={}]
+				#4
+			\end{itemize}
+		\end{minipage}
+	}
+	\end{tabularx}
+}
+
+% Add publications in bibligraphy form
+% Use: \addPubs{\item publication}
+\newcommand{\addPubs}[1]{
+	\vspace{\itemskip}
+	\begin{description}[nosep, align=right, labelindent=\lindent,
+		leftmargin = \dimexpr \smallcolwidth+2.5\lindent, rightmargin=\rindent,
+		labelwidth=\smallcolwidth, labelsep=1em, itemsep=\itemskip]
+		#1
+	\end{description}
+}
+
+% Add publications in table form
+% Use: \addPubs{year}{course title}{school/location}
+\newcommand{\addCourse}[3]{
+	\vspace{\itemskip}
+	\begin{tabularx}{\tablewidth}{
+		@{\hspace{\lindent}}
+		>{\raggedleft\arraybackslash}p{\smallcolwidth}
+		@{\hspace{1em}}X
+		@{\hspace{\rindent}}
+	}
+		\multirow[t]{2}{=}{\raggedleft\textbf{#1}} &  #2 \\
+		& #3
+	\end{tabularx}
+}
+
+\newcommand{\addAwards}[1]{
+	\vspace{\itemskip}
+	\begin{description}[nosep, align=right, labelindent=\lindent,
+		leftmargin = \dimexpr \smallcolwidth+2.5\lindent, rightmargin=\rindent,
+		labelwidth=\smallcolwidth, labelsep=1em, itemsep=\itemskip]
+	% \begin{description}[nosep, align=right, labelindent=\lindent, 
+	% 	labelwidth=\smallcolwidth, labelsep=1em, itemsep=.5\itemskip]
+		#1
+	\end{description}
+	\vspace{\itemskip}
+}
+
+\def\changemargin#1#2{\list{}{\rightmargin#2\leftmargin#1}\item[]}
+\let\endchangemargin=\endlist

@@ -1,0 +1,41 @@
+% !TEX program = lualatex
+\documentclass[11pt, letterpaper]{article}
+\usepackage{resume_long}
+
+% customize fonts, if desired
+% \setmainfont{Futura}
+
+\title{Resume}
+\author{Chad Borkenhagen}
+
+\makeatletter % enables access to @author and @title values
+
+\begin{document}
+
+% add header and footer
+\addFooter{\@author}{\@title}
+
+\addHeader{\@author}
+{
+  {\Huge \bf\scshape\spacedsc{10}{\@author}}
+}
+{
+  Brooklyn, NY \\
+  646–631–6351 \\ 
+  \Email{chad.borkenhagen@gmail.com} \\ 
+  \URL{https://chadborkenhagen.com}
+}
+\rule{\textwidth}{1pt}
+\vspace{-1.25\baselineskip}
+
+% add sections
+\input{subfiles/education.tex}
+\input{subfiles/experience.tex}
+% \vspace{\itemskip}
+\input{subfiles/skills.tex}
+% \vspace{\itemskip}
+\input{subfiles/publications.tex}
+% \input{subfiles/references.tex}
+
+
+\end{document}
