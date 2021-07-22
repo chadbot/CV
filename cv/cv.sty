@@ -42,6 +42,7 @@
 \titlespacing*{\subsection}{.5em}{1ex}{-.25\baselineskip}
 
 % define table lengths
+\newlength{\lmargin}
 \newlength{\smallcolwidth}
 \newlength{\tablewidth}
 \newlength{\lindent}
@@ -49,9 +50,10 @@
 
 \setlength\tabcolsep{0em}
 \setlength{\tablewidth}{1.0\textwidth}
-\setlength{\smallcolwidth}{.75in}
+\setlength{\smallcolwidth}{.85in}
 \setlength{\lindent}{1.5em}
 \setlength{\rindent}{.25in}
+\setlength{\lmargin}{1em}
 
 % vertical space between items
 \newskip\itemskip \itemskip=.5\baselineskip plus .2ex minus .2ex
@@ -90,17 +92,17 @@
 \newcommand{\addDegree}[5]{
 	\vspace{\itemskip}
 	\begin{tabularx}{\tablewidth}{
-		@{\hspace{\lindent}} 
+		@{\hspace{\lmargin}} 
 		>{\raggedleft\arraybackslash}p{\smallcolwidth}
 		@{\hspace{1em}}X
 		@{\hspace{\rindent}}
 	}
 	\multirow[t]{2}{=}{\raggedleft\textbf{#1}} &  \textbf{#4} \\
 	& \textit{#2 in #3} \\
-	% & \textit{#4} \\
 	\ifblank{#5}{}{
 		& \begin{minipage}[t]{\linewidth}
-			\begin{itemize}[nosep, leftmargin=0in, label={}]
+			% \begin{itemize}[nosep, leftmargin=0in, label={}]
+			\begin{itemize}[nosep, leftmargin=\lindent, label={}, itemindent=-\lindent]
 				#5
 			\end{itemize}
 		\end{minipage}
@@ -113,7 +115,7 @@
 \newcommand{\addJob}[4]{
 	\vspace{\itemskip}
 	\begin{tabularx}{\tablewidth}{
-		@{\hspace{\lindent}} 
+		@{\hspace{\lmargin}} 
 		>{\raggedleft\arraybackslash}p{\smallcolwidth}
 		@{\hspace{1em}}X
 		@{\hspace{\rindent}}
@@ -134,9 +136,13 @@
 % Use: \addPubs{\item publication}
 \newcommand{\addPubs}[1]{
 	\vspace{\itemskip}
-	\begin{description}[nosep, align=right, labelindent=\lindent,
-		leftmargin = \dimexpr \smallcolwidth+2.5\lindent, rightmargin=\rindent,
-		labelwidth=\smallcolwidth, labelsep=1em, itemsep=\itemskip]
+	\begin{description}[nosep, align=right, 
+		labelindent=\lmargin,
+		leftmargin = \dimexpr \lmargin+\smallcolwidth+1em+\lindent, 
+		rightmargin=\rindent,
+		labelwidth=\smallcolwidth, 
+		labelsep=1em, 
+		itemsep=\itemskip]
 		#1
 	\end{description}
 }
@@ -146,7 +152,7 @@
 \newcommand{\addCourse}[3]{
 	\vspace{\itemskip}
 	\begin{tabularx}{\tablewidth}{
-		@{\hspace{\lindent}}
+		@{\hspace{\lmargin}}
 		>{\raggedleft\arraybackslash}p{\smallcolwidth}
 		@{\hspace{1em}}X
 		@{\hspace{\rindent}}
@@ -158,11 +164,10 @@
 
 \newcommand{\addAwards}[1]{
 	\vspace{\itemskip}
-	\begin{description}[nosep, align=right, labelindent=\lindent,
-		leftmargin = \dimexpr \smallcolwidth+2.5\lindent, rightmargin=\rindent,
+	\begin{description}[nosep, align=right, 
+		labelindent=\lmargin,
+		leftmargin = \dimexpr \lmargin+\smallcolwidth+1em+\lindent, 
 		labelwidth=\smallcolwidth, labelsep=1em, itemsep=\itemskip]
-	% \begin{description}[nosep, align=right, labelindent=\lindent, 
-	% 	labelwidth=\smallcolwidth, labelsep=1em, itemsep=.5\itemskip]
 		#1
 	\end{description}
 	\vspace{\itemskip}
