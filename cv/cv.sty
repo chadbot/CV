@@ -67,13 +67,21 @@
   \monthname[\THEMONTH] \THEYEAR}
 
 \newcommand{\addHeader}[3]{
-	{\centering\Huge\scshape\spacedsc{10}\textsc{#1} \\ \vspace{1\itemskip}}
+	{\centering\Huge\scshape\spacedsc{10}\textsc{#1} \\ \vspace{2\itemskip}}
 	\noindent\begin{tabularx}{\textwidth}{@{}X r@{}}
     	\makecell[ml]{#2} & \makecell[mr]{#3}
 	\end{tabularx}
 }
 
 \newcommand{\addFooter}[2]{
+	\fancypagestyle{plain}{\fancyhf{}
+	\lfoot{\ifthenelse{\value{page}=1}{#2}{#2}}
+	\cfoot{\ifthenelse{\value{page}=1}{}{#1}}
+	\rfoot{\thepage}}
+	\pagestyle{plain}
+}
+
+\newcommand{\addFooterTotalPages}[2]{
 	\fancypagestyle{plain}{\fancyhf{}
 	\lfoot{\ifthenelse{\value{page}=1}{#2}{#2}}
 	\cfoot{\ifthenelse{\value{page}=1}{}{#1}}
@@ -97,8 +105,8 @@
 		@{\hspace{1em}}X
 		@{\hspace{\rindent}}
 	}
-	\multirow[t]{2}{=}{\raggedleft\textbf{#1}} &  \textbf{#4} \\
-	& \textit{#2 in #3} \\
+	\multirow[t]{2}{=}{\raggedleft\textbf{#1}} &  \textbf{#2 in #3, #4} \\
+	% & \textit{#2 in #3} \\
 	\ifblank{#5}{}{
 		& \begin{minipage}[t]{\linewidth}
 			% \begin{itemize}[nosep, leftmargin=0in, label={}]
