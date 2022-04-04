@@ -14,7 +14,11 @@
 
 % ----- FONT PREFERENCES ------------------------------------------------------------
 % define font defaults
-\setmainfont{Adobe Garamond Pro}
+\setmainfont[
+%  BoldFont={Gill Sans Semibold}, 
+%  ItalicFont={Gill Sans Italic},
+%  BoldItalicFont={Gill Sans SemiBold Italic}
+]{Adobe Garamond Pro}
 
 % colour definitions
 \definecolor{darkgrey}{rgb}{0.3,0.3,0.3}
@@ -114,6 +118,20 @@
 		 }
 	}
 }
+
+% plain text block, indented to match other elements
+\newenvironment{textblock}[2]{%
+	\vspace{1\itemskip}
+	\begin{list}{}{%
+		\setlength{\topsep}{\itemskip}%
+		\setlength{\leftmargin}{#1}%
+		\setlength{\rightmargin}{#2}%
+		\setlength{\listparindent}{\parindent}%
+		\setlength{\itemindent}{\parindent}%
+		\setlength{\parsep}{\parskip}%
+	}%
+  \item[]
+  }{\end{list}}
 
 % Add publications
 % Use: \addPubs{\item publication}
