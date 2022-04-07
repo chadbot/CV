@@ -95,18 +95,30 @@
 
 % ----- ADD ITEM COMMANDS ------------------------------------------------------------
 
+% Add summary
+% Use: \addSummary{Summary text.}
+\newcommand{\addSummary}[1]{
+	\vspace{\itemskip}
+	\vbox{
+		% \begin{tabularx}{\linewidth}{@{\hspace{0em}} X r}
+		\begin{tabularx}{.98\linewidth}{@{\hspace{0pt}} X r}
+			#1		
+		\end{tabularx}
+	}
+	\vspace{.5\itemskip}
+}
+
 % Add education
-% Use: \addDegree{year}{degree}{subject}{school}{other details}
-\newcommand{\addDegree}[5]{
+% Use: \addDegree{year}{degree}{subject}{school}{location}{other details}
+\newcommand{\addDegree}[6]{
 	\vspace{\itemskip}
 	\vbox{
 		\begin{tabularx}{\linewidth}{@{\hspace{0in}} X r}
 		\textbf{#4} | #2, #3 & #1		
 		\end{tabularx}
-		\ifblank{#5}{\vspace{-1.5\itemskip}}{
-			\begin{itemize}[nosep, leftmargin=\lindent, itemindent=-1\lindent,
-				rightmargin=2\rindent, label={}]
-				#5
+		\ifblank{#6}{\vspace{-1.5\itemskip}}{
+			\begin{itemize}[nosep, leftmargin=1.75\lindent, rightmargin=2\rindent]
+				#6
 			\end{itemize}
 		 }
 	}

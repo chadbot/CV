@@ -86,21 +86,36 @@
 
 % ----- ADD ITEM COMMANDS ------------------------------------------------------------
 
+% Add summary text block
+% Use: \addSummary{Insert summary here.}
+\newcommand{\addSummary}[1]{
+	\vspace{\itemskip}
+	\vbox{
+		\begin{itemize}[nosep, leftmargin=\lindent, itemindent=0\lindent, 
+			label={}, itemsep=.5\itemskip, rightmargin=2\rindent]
+		\item{#1}
+		\end{itemize}
+	}
+	% \vspace{\itemskip}
+}
+
 % Add education
-% Use: \addDegree{year}{degree}{subject}{school}{other details}
-\newcommand{\addDegree}[5]{
+% Use: \addDegree{year}{degree}{subject}{school}{location}{other details}
+\newcommand{\addDegree}[6]{
 	\vspace{\itemskip}
 	\vbox{
 		\begin{tabularx}{\tablewidth}{@{\hspace{\lindent}} X r}
-		\textbf{#4} & #1 \\
-		{\textit{#2 in #3}} \\
-		\end{tabularx}\ifblank{#5}{}{
-			\begin{itemize}[nosep, leftmargin=1.6\lindent, rightmargin=\rindent]
-				#5
+		\textbf{#4}, #5 & #1 \\
+		% {\textit{#2 in #3}} \\
+		{#2 in #3} \\
+		\end{tabularx}\ifblank{#6}{}{
+			\begin{itemize}[nosep, leftmargin=1.75\lindent, rightmargin=\rindent]
+				#6
 			\end{itemize}
 		 }
 	}
 }
+
 
 % Add work experience
 % Use: \addJob{years}{position}{employer}{city}{details}
@@ -109,8 +124,8 @@
 	\vbox{
 		\begin{tabularx}{\tablewidth}{@{\hspace{\lindent}} X r}
 		\textbf{#2} &  #1 \\
-		\ifblank{#3}{\textit{#4}}{\textit{#3, #4}} & \\
 		% \ifblank{#3}{\textit{#4}}{\textit{#3, #4}} & \\
+		\ifblank{#3}{#4}{#3, #4} & \\
 		\end{tabularx}\ifblank{#5}{}{
 			\begin{itemize}[nosep, leftmargin=1.75\lindent, rightmargin=\rindent]
 				#5
@@ -118,20 +133,6 @@
 		 }
 	}
 }
-
-% plain text block, indented to match other elements
-\newenvironment{textblock}[2]{%
-	\vspace{1\itemskip}
-	\begin{list}{}{%
-		\setlength{\topsep}{\itemskip}%
-		\setlength{\leftmargin}{#1}%
-		\setlength{\rightmargin}{#2}%
-		\setlength{\listparindent}{\parindent}%
-		\setlength{\itemindent}{\parindent}%
-		\setlength{\parsep}{\parskip}%
-	}%
-  \item[]
-  }{\end{list}}
 
 % Add publications
 % Use: \addPubs{\item publication}

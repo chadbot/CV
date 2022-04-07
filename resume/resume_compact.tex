@@ -2,18 +2,13 @@
 \documentclass[10pt, letterpaper]{extarticle}
 \usepackage{resume_compact}
 
-% customize font, if desired
-% \setmainfont{Nunito Sans}
-\setmainfont[
- BoldFont={Gill Sans Semibold}, 
- ItalicFont={Gill Sans Italic},
- BoldItalicFont={Gill Sans SemiBold Italic}
- ]{Gill Sans}
-
 \title{Resume}
 \author{Chad Borkenhagen}
 
 \makeatletter % enables access to @author and @title values
+
+% % override style font
+% \setmainfont{Adobe Garamond Pro}
 
 \begin{document}
 
@@ -21,26 +16,28 @@
 % add header and top whitespace
 % \setlength{\topmargin}{0in}
 \addHeader{\@author}
-{
-  {\Huge \bf\scshape{\@author}}
-  % {\Huge \bf\MakeUppercase{\@author}}
-  % \Large Computational Social Scientist
-}
-{
-  Brooklyn, NY \\
-  646–621–6351 \\ 
-  \Email{chad.borkenhagen@gmail.com} \\ 
-  \URL{https://chadborkenhagen.com} \\
-}
+  {
+    {\Huge \bf\scshape{\@author}}
+    % {\Huge \bf\MakeUppercase{\@author}}
+    % \Large Computational Social Scientist
+  }
+  {
+    Brooklyn, NY \\
+    646–621–6351 \\ 
+    \Email{chad.borkenhagen@gmail.com} \\ 
+    \URL{https://chadborkenhagen.com} \\
+  }
 \rule{\textwidth}{1pt}
 \vspace{-1.25\baselineskip}
 
-\columnratio{0.57}
+% adjust ratio to produce balanced columns
+\columnratio{0.59}
 \begin{paracol}{2}
 
+\input{subfiles/summary.tex}
 \input{subfiles/experience.tex} 
 
-\switchcolumn
+\switchcolumn{}
 
 \input{subfiles/education.tex}
 \input{subfiles/skills_short.tex}
