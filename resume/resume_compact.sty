@@ -35,6 +35,13 @@
 
 % ----- PAGE FORMATTING AND SPACING ----------------------------------------------------
 
+% reduce hyphenization
+\pretolerance=1000
+% \tolerance=5000 
+% \emergencystretch=2pt
+% \exhyphenpenalty=100
+
+
 % Set page margins
 \setlength{\topmargin}{-.25in}
 \setlength{\headheight}{0in}
@@ -117,7 +124,7 @@
 		\textbf{#4} | #2, #3 & #1		
 		\end{tabularx}
 		\ifblank{#6}{\vspace{-1.5\itemskip}}{
-			\begin{itemize}[nosep, leftmargin=1.75\lindent, rightmargin=2\rindent]
+			\begin{itemize}[nosep, leftmargin=2\lindent, rightmargin=2\rindent]
 				#6
 			\end{itemize}
 		 }
@@ -133,7 +140,7 @@
 		\textbf{#2} &  #1 \\
 		\multicolumn{2}{l}{\ifblank{#3}{\textit{#4}}{\textit{#3, #4}}} \\
 		\end{tabularx}\ifblank{#5}{\vspace{-1.5\itemskip}}{
-			\begin{itemize}[nosep, leftmargin=1.75\lindent, rightmargin=2\rindent]
+			\begin{itemize}[nosep, leftmargin=2\lindent, rightmargin=2\rindent]
 				#5
 			\end{itemize}
 		 }
@@ -157,7 +164,7 @@
 	\vspace{\itemskip}
 	\vbox{
 	\noindent\textbf{#1}
-		\begin{itemize}[nosep, leftmargin=1.75\lindent, rightmargin=3\rindent]
+		\begin{itemize}[nosep, leftmargin=2\lindent, rightmargin=3\rindent]
 		#2
 		\end{itemize}
 	}
