@@ -15,10 +15,8 @@
 % ----- FONT PREFERENCES ------------------------------------------------------------
 % define font defaults
 \setmainfont[
-%  BoldFont={Gill Sans Semibold}, 
-%  ItalicFont={Gill Sans Italic},
-%  BoldItalicFont={Gill Sans SemiBold Italic}
-]{Adobe Garamond Pro}
+ BoldFont={EB Garamond-SemiBold}
+]{EB Garamond}
 
 % colour definitions
 \definecolor{darkgrey}{rgb}{0.3,0.3,0.3}
@@ -27,6 +25,12 @@
 \newcommand{\spacedsc}[1]{\scshape\addfontfeatures{LetterSpace=#1}}
 
 % ----- PAGE FORMATTING AND SPACING ----------------------------------------------------
+
+% reduce hyphenation
+\pretolerance=1000
+% \tolerance=5000 
+% \emergencystretch=2pt
+% \exhyphenpenalty=100
 
 % Page margins adjustments
 \setlength{\topmargin}{-.25in}
@@ -80,7 +84,7 @@
 	\fancypagestyle{plain}{\fancyhf{}
 	\lfoot{\ifthenelse{\value{page}=1}{}{#1}}
 	\cfoot{\ifthenelse{\value{page}=1}{}{#2}}
-	\rfoot{\thepage\ of \pageref{LastPage}}}
+	\rfoot{Page \thepage\ of \pageref{LastPage}}}
 	\pagestyle{plain}
 }
 
@@ -146,6 +150,22 @@
 	}
 	\vspace{\itemskip}
 }
+
+% Add skill groups
+% Use: \addJob{header}{\item skill}
+\newcommand{\addSkillGroup}[2]{
+	\vspace{\itemskip}
+	\vbox{
+		\begin{tabularx}{\tablewidth}{@{\hspace{\lindent}} X r}
+		\textbf{#1} \\
+		\end{tabularx}\ifblank{#2}{}{
+			\begin{itemize}[nosep, leftmargin=1.75\lindent, rightmargin=\rindent]
+				#2
+			\end{itemize}
+		 }
+	}
+}
+
 % Add skills as description style list
 % Use: \addSkills{\item[groupname] skills}
 \newcommand{\addSkills}[1]{
