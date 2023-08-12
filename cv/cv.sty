@@ -15,7 +15,8 @@
 
 % ----- FONT PREFERENCES ------------------------------------------------------------
 % define main font
-\setmainfont{Adobe Garamond Pro}
+% \setmainfont{Adobe Garamond Pro}
+\setmainfont{EB Garamond}
 
 % colour definitions
 \definecolor{darkgrey}{rgb}{0.3,0.3,0.3}
@@ -66,12 +67,19 @@
 \newdateformat{monthyeardate}{%
   \monthname[\THEMONTH] \THEYEAR}
 
-\newcommand{\addHeader}[3]{
-	{\centering\Huge\scshape\spacedsc{10}\textsc{#1} \\ \vspace{2\itemskip}}
-	\noindent\begin{tabularx}{\textwidth}{@{}X r@{}}
-    	\makecell[ml]{#2} & \makecell[mr]{#3}
-	\end{tabularx}
-}
+  % One-column header
+  \newcommand{\addHeader}[2]{
+	  {\centering\Huge\scshape\spacedsc{10}\textsc{#1} \\ \vspace{.5\itemskip}}
+	  {\centering{#2} \\ \vspace{-.5\itemskip}}
+  }
+
+  % Two-column header.
+% \newcommand{\addHeader}[3]{
+% 	{\centering\Huge\scshape\spacedsc{10}\textsc{#1} \\ \vspace{2\itemskip}}
+% 	\noindent\begin{tabularx}{\textwidth}{@{}X r@{}}
+%     	\makecell[ml]{#2} & \makecell[mr]{#3}
+% 	\end{tabularx}
+% }
 
 \newcommand{\addFooter}[2]{
 	\fancypagestyle{plain}{\fancyhf{}
