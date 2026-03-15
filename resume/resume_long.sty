@@ -121,21 +121,32 @@
 	}
 }
 
-
 % Add work experience
-% Use: \addJob{years}{position}{employer}{city}{details}
-\newcommand{\addJob}[5]{
+% Use: \addJob{years}{position}{employer}{city}{description}{details}
+\newcommand{\addJob}[6]{
 	\vspace{\itemskip}
 	\vbox{
 		\begin{tabularx}{\tablewidth}{@{\hspace{\lindent}} X r}
 		\textbf{#2} &  #1 \\
-		% \ifblank{#3}{\textit{#4}}{\textit{#3, #4}} & \\
 		\ifblank{#3}{#4}{#3 | #4} & \\
-		\end{tabularx}\ifblank{#5}{}{
+		\end{tabularx}
+		\ifblank{#5}{\vspace{-.5em}}{
+			\vspace{-.5em}
+			\begin{list}{}{
+				\setlength{\leftmargin}{\lindent}
+				\setlength{\rightmargin}{\rindent}
+				\setlength{\topsep}{0pt}
+				\setlength{\parsep}{0pt}
+			}
+			\item[] #5
+			\end{list}
+		}
+		% \vspace{.005em}
+		\ifblank{#6}{}{
 			\begin{itemize}[nosep, leftmargin=1.75\lindent, rightmargin=\rindent]
-				#5
+				#6
 			\end{itemize}
-		 }
+		}
 	}
 }
 
