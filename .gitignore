@@ -12,3 +12,9 @@
 archive
 examples
 .DS_Store
+*.docx
+
+# Specific files
+BorkenhagenCV.pdf
+Borkenhagen_CV_refs.pdf
+CBorkenhagen_resume.pdf
