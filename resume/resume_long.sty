@@ -130,7 +130,7 @@
 		\begin{tabularx}{\tablewidth}{@{\hspace{\lindent}} X r}
 		\textbf{#2} &  #1 \\
 		% \ifblank{#3}{\textit{#4}}{\textit{#3, #4}} & \\
-		\ifblank{#3}{#4}{#3, #4} & \\
+		\ifblank{#3}{#4}{#3 | #4} & \\
 		\end{tabularx}\ifblank{#5}{}{
 			\begin{itemize}[nosep, leftmargin=1.75\lindent, rightmargin=\rindent]
 				#5
